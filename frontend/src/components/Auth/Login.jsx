@@ -1,21 +1,28 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { Link, Navigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Context } from "../../main";
+import PropTypes from "prop-types";
 
-const Login = () => {
+import { Context } from "../../authContext";
+
+import AuthButton from "./AuthButton";
+
+const Login = ({ forceLoading = false }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isAuthorized, setIsAuthorized } = useContext(Context);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true); 
     try {
       const { data } = await axios.post(
         "http://localhost:4000/api/v1/user/login",
@@ -34,12 +41,16 @@ const Login = () => {
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
-  if(isAuthorized){
-    return <Navigate to={'/'}/>
+  if (isAuthorized) {
+    return <Navigate to={'/'} />;
   }
+
+  const isButtonDisabled = isLoading || forceLoading;
 
   return (
     <>
@@ -55,7 +66,6 @@ const Login = () => {
               <div>
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
                   <option value="">Select Role</option>
-                  
                   <option value="Job Seeker">Job Seeker</option>
                   <option value="Employer">Employer</option>
                 </select>
@@ -86,9 +96,13 @@ const Login = () => {
                 <RiLock2Fill />
               </div>
             </div>
-            <button type="submit" onClick={handleLogin}>
-              Login
-            </button>
+
+            <AuthButton 
+                text="Login"
+                onClick={handleLogin}
+                loading={isButtonDisabled}
+            />
+
             <Link to={"/register"}>Register Now</Link>
           </form>
         </div>
@@ -98,6 +112,10 @@ const Login = () => {
       </section>
     </>
   );
+};
+
+Login.propTypes = {
+  forceLoading: PropTypes.bool,
 };
 
 export default Login;

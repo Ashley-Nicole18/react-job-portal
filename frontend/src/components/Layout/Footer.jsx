@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import {Context} from "../../main"
+import {useContext} from "react";
+import {Context} from "../../authContext"
 import {Link} from "react-router-dom"
 import { FaGithub , FaLinkedin} from "react-icons/fa"
 import { SiLeetcode } from "react-icons/si";

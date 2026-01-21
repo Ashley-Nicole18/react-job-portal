@@ -1,10 +1,9 @@
-import React, { createContext, useState } from "react";
+import React, { useState } from "react"; 
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import { Context } from "./authContext"; 
 
-export const Context = createContext({
-  isAuthorized: false,
-});
+
 
 const AppWrapper = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);

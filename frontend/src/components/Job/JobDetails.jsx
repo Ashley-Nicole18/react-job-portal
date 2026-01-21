@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Context } from "../../main";
+import { Context } from "../../authContext";
 const JobDetails = () => {
   const { id } = useParams();
   const [job, setJob] = useState({});

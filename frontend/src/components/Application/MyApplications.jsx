@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../../main";
+import{ useContext, useEffect, useState } from "react";
+import { Context } from "../../authContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";

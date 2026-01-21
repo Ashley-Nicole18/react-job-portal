@@ -7,7 +7,7 @@ import { FaPhoneFlip } from "react-icons/fa6";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Context } from "../../main";
+import { Context } from "../../authContext";
 
 const Register = () => {
   const [email, setEmail] = useState("");
